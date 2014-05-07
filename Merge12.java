@@ -13,11 +13,15 @@ public class Merge12 implements Sort12
 		// Create the arrayList to insert into
 		ArrayList<T> inputArray = new ArrayList<T>(list.size());
 		ArrayList<T> tempArray = new ArrayList<T>(list.size()/2);
+
+		//Copy input list into inputArray, and tempArray
 		for (int i =0; i<list.size(); i++){
 			if (i<list.size()/2)
 				tempArray.add(list.get(i));
 			inputArray.add(list.get(i));
 		}
+
+		//Main sorting algorithm call
 		internalMergeSort(inputArray, tempArray, 0, list.size()-1);
 		for(int i = 0; i<list.size(); i++){
 			list.set(i, inputArray.get(i));
@@ -32,8 +36,12 @@ public class Merge12 implements Sort12
 			return;
 		}
 		int mid = (last+first+1)/2;
+
+		//Sort on the bottom half of the list
 		internalMergeSort(inputArray, tempArray, first, mid-1);
+		//Sort on the top half of the list
 		internalMergeSort(inputArray, tempArray, mid, last);
+		//Merge the two sorted halves together 
 		merge(inputArray, tempArray, first, mid, last); 
 	} 
 
@@ -63,6 +71,9 @@ public class Merge12 implements Sort12
 		while ((firstPartitionIndex<(mid-first)) && (secondPartitionIndex<=last)){
 			T object1 = tempArray.get(firstPartitionIndex);
 			T object2 = inputArray.get(secondPartitionIndex);
+
+			//Compare what's on top of both lists, find the lowest, and put it in
+			//the inputArray
 			if(object1.compareTo(object2)<0){
 				inputArray.set(insertIndex, tempArray.get(firstPartitionIndex));
 				firstPartitionIndex++;
@@ -73,15 +84,19 @@ public class Merge12 implements Sort12
 			}
 			insertIndex++;
 		}
+
+		//If the second half is empty, but the first half isn't, copy the first
+		//half into the sortedArray
 		while (firstPartitionIndex<(mid-first)){
 			inputArray.set(insertIndex, tempArray.get(firstPartitionIndex));
 			firstPartitionIndex++; insertIndex++;
 		}
 	} 
 
+	//Just for testing
 	public static void main(String[] args){
-		LinkedList<String> alphabet = new LinkedList();
-		LinkedList<Integer> integers= new LinkedList();
+		LinkedList<String> alphabet = new LinkedList<String>();
+		LinkedList<Integer> integers= new LinkedList<Integer>();
 		for (int i = 0; i<26; i++){
 			alphabet.add(""+ (char)((int)'Z'-i));
 			integers.add(new Integer(26-i));

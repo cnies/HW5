@@ -1,0 +1,234 @@
+CSE 12 Homework 5
+Christopher Nies
+A11393577
+Section B00
+April 30th, 2014
+
+Part 2
+Round 1: random-strings.txt
+I. Bubble
+	A. I ran this test using these parameters: java -Xint -Xss128m SortTimer
+	random-strings.txt 0 1000 1000 10. The reason being is that bubble sort is
+	incredibly slow in doing what it does because all it does is compare two
+	adjacent elements in the list over and over in a linear fashion, and switch
+	them one by one until the list is sorted. Even for these relatively small
+	parameters though, the time it took was extraordinary
+	
+	
+	B. Document: random-strings.txt
+	 sortAlg: 0
+	 =======================================
+	  1:    1000 words in    1056 milliseconds
+		2:    2000 words in    3917 milliseconds
+		3:    3000 words in    8663 milliseconds
+		4:    4000 words in   15601 milliseconds
+		5:    5000 words in   26018 milliseconds
+		6:    6000 words in   37729 milliseconds
+		7:    7000 words in   51121 milliseconds
+		8:    8000 words in   66743 milliseconds
+		9:    9000 words in   89653 milliseconds
+		10:   10000 words in  111640 milliseconds
+
+	C. The time complexity is quite obviously O(n^2). Doubling the input size
+	roughly quadrupled the time it took in amost every case. A n of 1000->2000
+	increased the amount of time taken by a factor of four (~1000->~4000). Same
+	case for n of 2000->4000 (~4000 -> ~16000), and again for n of 4000-8000 
+	(~16000 -> ~64000). These data points show pretty conclusively that the time-
+	complexity of this algorithm is order n^2.
+
+II. Insertion
+	A. java -Xint -Xss128m SortTimer random-strings.txt 1 5000 5000 10
+		I ran the tests with the same parameters as the bubble sort above, only to
+		learn that this Insertion sort is much, much faster. So I extended it to
+		get a nice look at even more asymptotic cases for analysis.
+
+	B.
+		Document: random-strings.txt
+		sortAlg: 1
+		=======================================
+	  1:    5000 words in      67 milliseconds
+		2:   10000 words in     175 milliseconds
+		3:   15000 words in     252 milliseconds
+		4:   20000 words in     342 milliseconds
+	  5:   25000 words in     452 milliseconds
+	  6:   30000 words in     587 milliseconds
+	  7:   35000 words in     677 milliseconds
+		8:   40000 words in     823 milliseconds
+		9:   45000 words in     919 milliseconds
+		10:  50000 words in    1081 milliseconds
+											 
+	C.
+		This insertion sort looks a lot like an order nor nlog(n) algorithm rather
+		than the order n^2 we learned about in lecture. This behavior looks like
+		the Merge and Quick sort behavior, most likely due to the modifications made
+		to it
+
+III. Merge
+	A. java -Xint -Xss128m SortTimer random-strings.txt 2 5000 5000 10
+		Same as above. I knew this algorithm was order nlog(n) so I felt I could
+		use large numbers for analysis.
+	 
+	B. Document: random-strings.txt
+	 sortAlg: 2
+	 =======================================
+	  1:    5000 words in     145 milliseconds
+		2:   10000 words in     311 milliseconds
+	  3:   15000 words in     489 milliseconds
+		4:   20000 words in     753 milliseconds
+		5:   25000 words in    1018 milliseconds
+		6:   30000 words in    1245 milliseconds
+		7:   35000 words in    1445 milliseconds
+		8:   40000 words in    1670 milliseconds
+		9:   45000 words in    1906 milliseconds
+	  10:  50000 words in    2171 milliseconds
+
+	C. This table lines up well with an nlog(n) time complexity algorithm.
+		Everytime the problem size doubles, the time it takes increases by slightly
+		more than a factor of two in every case.
+
+IV. Quick
+	A. java -Xint -Xss128m SortTimer random-strings.txt 3 5000 5000 10.
+	 I essentially judged Quick Sort by it's name, knowing it was a recursive 
+	 algorithm, so I used the exact same parameters as Merge Sort above.
+	
+	B.
+	  Document: random-strings.txt
+	  sortAlg: 3
+	  =======================================
+	  1:    5000 words in     113 milliseconds
+		2:   10000 words in     243 milliseconds
+		3:   15000 words in     345 milliseconds
+		4:   20000 words in     490 milliseconds
+		5:   25000 words in     661 milliseconds
+		6:   30000 words in     820 milliseconds
+		7:   35000 words in     939 milliseconds
+		8:   40000 words in    1060 milliseconds
+		9:   45000 words in    1383 milliseconds
+		10:  50000 words in    1283 milliseconds
+	
+  C. Same as merge sort above, only faster. A rough doubling of the input size
+	usually roughly doubled the amount of time it takes, usually taking slightly
+	more than twice the amount of time.
+
+
+
+Round 2: random-strings-sorted.txt
+I. Bubble
+	A. java -Xint -Xss128m SortTimer random-strings-sorted.txt 0 5000 5000 5
+	 Since I know how bubble sort works, I know that Bubble sorting a presorted
+	 list is just a trivial walk through the list, making comparisons of order n.
+	 Thus, the large inputs when compared to last time.
+
+	B. Document: random-strings-sorted.txt
+	 sortAlg: 0
+	 =======================================
+	 1:    5000 words in       5 milliseconds
+	 2:   10000 words in      11 milliseconds
+	 3:   15000 words in      18 milliseconds
+	 4:   20000 words in      23 milliseconds
+	 5:   25000 words in      29 milliseconds
+	  
+	C. I would best describe it as "hilariously linear". It almost perfectly fits
+	within a line of function Time = n/1000. Doubling n pretty much doubles time
+	taken, rather than scaling with the square of n.
+
+II. Insertion
+	A. java -Xint -Xss128m SortTimer random-strings-sorted.txt 1 5000 5000 5
+		Since I know that running insertion sort on a regular random list was
+		roughly nlog(n), and I know how a regular insertion sort works, 
+		I knew I could use large numbers here.
+
+	B. Document: random-strings-sorted.txt
+	 sortAlg: 1
+	 =======================================
+	   1:    5000 words in      12 milliseconds
+		 2:   10000 words in      24 milliseconds
+		 3:   15000 words in      36 milliseconds
+		 4:   20000 words in      49 milliseconds
+	   5:   25000 words in      62 milliseconds
+
+	C. Linear, order n, once again. Just looking at the first three inputs it is
+	obvious just how linearly this scales, increasing by the same amount each time.
+	Also doubling n from 20000->40000 roughly doubles the time taken (24->49). This
+	indicates that it scales linearly.
+
+III. Merge
+	A. java -Xint -Xss128m SortTimer random-strings-sorted.txt 2 5000 5000 5
+		Same rationale as insertion sort. Merge sort shouldn't take any extra time
+		because it is sorted, it executes the same exact number of steps but it's
+		quicker because there are no switches that need to be made.
+		 
+	B. Document: random-strings-sorted.txt
+	 sortAlg: 2
+	 =======================================
+	  1:    5000 words in      92 milliseconds
+	  2:   10000 words in     203 milliseconds
+		3:   15000 words in     320 milliseconds
+	  4:   20000 words in     426 milliseconds
+		5:   25000 words in     542 milliseconds 
+
+	C. Scales with nlog(n) just like it's non-presorted counterpart, just a bit
+	faster because there is no need to switch elements in the array. I don't feel
+	any further exlanation is needed.
+
+IV. Quick
+	A. java -Xint -Xss128m SortTimer random-strings-sorted.txt 3 1000 1000 8
+	I'll admit I meta-gamed this, because I already knew that this particular
+	quicksort algorithm will run at roughly order n^2 time complexity in this case.
+	Why? Eh. I'll explain later. I significantly lowered the amount of inputs
+	because I knew it would be much slower.
+
+	B.Document: random-strings-sorted.txt
+	 sortAlg: 3
+	 =======================================
+	   1:    1000 words in     410 milliseconds
+		 2:    2000 words in    1603 milliseconds
+	   3:    3000 words in    3675 milliseconds
+	   4:    4000 words in    6459 milliseconds
+	   5:    5000 words in    9928 milliseconds
+	   6:    6000 words in   14375 milliseconds
+		 7:    7000 words in   19478 milliseconds
+		 8:    8000 words in   25412 milliseconds
+
+	C.As predicted, this runs much slower than normal, at a roughly order n^2 time
+	complexity. The reason being is because it is doing a recursive call for
+	pretty much every element in the list, running a bunch of comparisons each time.
+	Why does it do this? Well, Quicksort works by selecting what is called a pivot,
+	and then rearranging the entire list to have every element smaller than the
+	pivot on one side, and greater than the pivot on the other. The way this
+	particular implementation works, however, it selects the very first element in
+	it's range as the pivot. This is not a problem in unsorted lists, because
+	the first element is about as likely to be somewhere in the middle as any other
+	element in the list. However, in a pre-sorted list, the first element is by
+	definition the smallest, so it compares the first element to every element 
+	afterward (n-1 steps). It then recursively calls itself on the next element,
+	which compares itself to the rest of the list (n-2 steps). The summation across the
+	list reveals that the order of this algorith is the square of the input. Therefore,
+	a pre-sorted list is the worst case for this particular algorithm.
+
+Round 3
+For three out of the four algorithms, a sorted list is a best case scenario. For
+Bubble sort, it's because all Bubble sort needs to achieve is to walk through the
+list once and determine nothing needs to be replaces, with is extremely quick.
+For insertion sort, it also seemed to move quicker, because there are no swaps or
+anything. Merge sort has the same number of recursive calls on inputs of the same
+size, regardless of how they are sorted, but since no swaps need to be made, running
+Merge sort on a sorted list is a bit faster. And as stated above, Quick sort is very
+sensitive to how an array is pre-ordered, so the case of the pre-sorted list is 
+actually much, much slower rather than faster.
+
+
+Part 3
+- binSearch is a simple search to look through a "sorted" list and return where
+the element, or in this case rather should be.
+- It's used to search through the array as elements are being added to it, to
+see where the next element should be added to the ArrayList. Since ArrayLists
+can have elements added anywhere, a binarySearch can place exactly the correct
+element in the correct place.
+-The space complexity of a classic insertion sort is very small, since all it
+requires is a temp value in order to switch values in the array. This is a
+constant amount of space, never needing to be greater than O(1).
+-The space complexity of this implentation of insertion sort is O(n) because
+it essentially needs a copy of the list (inserted) in order to do insert into,
+and then copy back into the list itself. The list itself has no "swapping" in it,
+it's just used to insert a certain element in the correct place 
